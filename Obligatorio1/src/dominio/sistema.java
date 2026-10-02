@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
-public class sistema {
+public class Sistema {
     ArrayList<Ficha> ListaFichas;
     ArrayList<Mural> ListaMurales;
     ArrayList<Disenador> ListaDisenadores;
 
-    public sistema() {
+    public Sistema() {
     }
 
     public ArrayList<Ficha> getListaFichas() {

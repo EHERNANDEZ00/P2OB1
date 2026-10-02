@@ -8,6 +8,9 @@ package interfaz;
  *
  * @author Eduar
  */
-public class inicio {
-    
+public class Inicio {
+       public static void main(String[] Args){
+        Interfaz inte = new Interfaz();
+        inte.menu();
+    } 
 }
