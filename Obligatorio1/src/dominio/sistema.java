@@ -1,13 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package dominio;
+import java.util.ArrayList;
 
-/**
- *
- * @author Eduar
- */
 public class sistema {
+    ArrayList<Ficha> ListaFichas;
+    ArrayList<Mural> ListaMurales;
+    ArrayList<Disenador> ListaDisenadores;
+
+    public sistema() {
+    }
+
+    public ArrayList<Ficha> getListaFichas() {
+        return ListaFichas;
+    }
+
+    public ArrayList<Mural> getListaMurales() {
+        return ListaMurales;
+    }
+
+    public ArrayList<Disenador> getListaDisenadores() {
+        return ListaDisenadores;
+    }
     
 }
