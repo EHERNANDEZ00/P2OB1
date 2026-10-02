@@ -1,3 +1,4 @@
+package dominio;
 
 public class Mural {
     private String nombre;

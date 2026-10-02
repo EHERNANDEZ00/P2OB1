@@ -1,7 +1,8 @@
-import java.util.Scanner;
+/*
 package interfaz;
+import java.util.Scanner;
 
-public class interfaz {
+public class Interfaz {
     private int pedirNumero(String mensaje){
         Scanner in = new Scanner(System.in);
         boolean ok = false;
@@ -11,3 +12,4 @@ public class interfaz {
         
     }
 }
+*/
