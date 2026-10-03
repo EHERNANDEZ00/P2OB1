@@ -2,8 +2,15 @@
 package interfaz;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import dominio.Sistema;
 
 public class Interfaz {
+    
+    private Sistema sist;
+    
+    public Interfaz(Sistema unSis){
+        sist = unSis;
+    }
 
     Scanner input = new Scanner(System.in);
 
@@ -26,6 +33,21 @@ public class Interfaz {
                 System.out.println("Debe ingresar un número");
                 input.nextLine();
             }
+        }
+        return resultado;
+    }
+    
+    private String pedirString(String mensaje){
+        String resultado = "";
+        boolean ok = true;
+        while (ok){
+                System.out.println(mensaje);
+                resultado = input.nextLine();
+                if(resultado != null && !resultado.trim().isEmpty()){
+                    ok = false;
+                } else {
+                    System.out.println("Dato incorrecto, debe ingresar algo");
+                } 
         }
         return resultado;
     }
@@ -97,7 +119,14 @@ public class Interfaz {
     
     public void registrarDisenador(){
         /*sistema.validarNombreDisenador(String nombre)*/
-        ingresarString();
+        String nombre = pedirString("Ingrese el nombre del diseñador").toUpperCase();
+        boolean nombreValido = sist.validarNombreDisenador(nombre);
+        while (!nombreValido){
+            nombre = pedirString("Ingrese un nombre no ya utilizado").toUpperCase();
+            if(sist.validarNombreDisenador(nombre)){
+                nombreValido = true;
+            }
+        }
         
     }
 }
