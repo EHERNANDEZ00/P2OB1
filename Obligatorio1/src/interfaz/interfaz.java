@@ -6,7 +6,8 @@ import java.util.Scanner;
 public class Interfaz {
 
     Scanner input = new Scanner(System.in);
-    
+
+
     private int pedirNumero(String mensaje, int min, int max){
         int resultado = 0;
         boolean ok = true;
@@ -91,5 +92,12 @@ public class Interfaz {
         System.out.println("");
         System.out.println("Ingrese cualquier caracter para continuar");
         input.nextLine();
+    }
+    
+    
+    public void registrarDisenador(){
+        /*sistema.validarNombreDisenador(String nombre)*/
+        ingresarString();
+        
     }
 }

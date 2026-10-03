@@ -25,8 +25,50 @@ public class Sistema {
         return listaDisenadores;
     }
     
-    private void agregarFicha(Ficha unaFicha){
+    public void agregarFicha(Ficha unaFicha){
         listaFichas.add(unaFicha);
+    }
+    public void agregarMural(Mural unMural){
+        listaMurales.add(unMural);
+    }
+    public void agregarDisenador(Disenador unDisenador){
+        listaDisenadores.add(unDisenador);
+    }
+    
+    public boolean validarNombreFicha(String nombre){
+        boolean esValido = true;
+        if(!listaFichas.isEmpty()){
+            for(Ficha ficha: listaFichas){
+                if(ficha.getNombre().equals(nombre)){
+                    esValido = false;
+                }
+            }
+        }
+        return esValido;
+    }
+    
+    public boolean validarNombreMural(String nombre){
+        boolean esValido = true;
+        if(!listaMurales.isEmpty()){
+            for(Mural mural: listaMurales){
+                if(mural.getNombre().equals(nombre)){
+                    esValido = false;
+                }
+            }
+        }
+        return esValido;
+    }
+    
+    public boolean validarNombreDisenador(String nombre){
+        boolean esValido = true;
+        if(!listaDisenadores.isEmpty()){
+            for(Disenador disenador: listaDisenadores){
+                if(disenador.getNombre().equals(nombre)){
+                    esValido = false;
+                }
+            }
+        }
+        return esValido;
     }
     
     private void precargar(){
