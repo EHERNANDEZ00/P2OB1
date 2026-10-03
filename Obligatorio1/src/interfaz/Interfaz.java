@@ -118,15 +118,14 @@ public class Interfaz {
     
     
     public void registrarDisenador(){
-        /*sistema.validarNombreDisenador(String nombre)*/
-        String nombre = pedirString("Ingrese el nombre del diseñador").toUpperCase();
+        String nombre = pedirString("Ingrese el nombre del disenador");
         boolean nombreValido = sist.validarNombreDisenador(nombre);
-        while (!nombreValido){
-            nombre = pedirString("Ingrese un nombre no ya utilizado").toUpperCase();
-            if(sist.validarNombreDisenador(nombre)){
-                nombreValido = true;
-            }
+        while(!nombreValido){
+            nombre = pedirString("Ese nombre no es valido, elija otro");
+            nombreValido = sist.validarNombreDisenador(nombre);
         }
-        
+        String email = pedirString("Ingrese el email del disenador");
+        String direccion = pedirString("Ingrese la direccion del disenador");
+        sist.agregarDisenador(new Disenador(nombre, email, direccion));
     }
 }
