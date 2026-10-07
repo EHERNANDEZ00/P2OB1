@@ -2,7 +2,7 @@
 package interfaz;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import dominio.Sistema;
+import dominio.*;
 
 public class Interfaz {
     
@@ -22,7 +22,7 @@ public class Interfaz {
             try{
                 System.out.println(mensaje);
                 resultado = input.nextInt();
-                if(min >= resultado && max <= resultado ){
+                if(min <= resultado && max >= resultado ){
                     ok = false;
                     input.nextLine();
                 }else{
@@ -128,4 +128,34 @@ public class Interfaz {
         String direccion = pedirString("Ingrese la direccion del disenador");
         sist.agregarDisenador(new Disenador(nombre, email, direccion));
     }
+    public void registrarFicha(){
+        
+    }
+    
+    public void crearMural(){
+        
+    }
+    
+    public void modificarMural(){
+        
+    }
+    
+    public void verMural(){
+        
+    }
+    
+    public void listaDisenadores(){
+        
+    }
+    
+    public void compararMurales(){
+        
+    }
+    
+    public void verFichas(){
+        
+    }
+    
 }
+
+
