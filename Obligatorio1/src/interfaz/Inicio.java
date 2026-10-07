@@ -1,11 +1,16 @@
 
 package interfaz;
-import dominio.Sistema;
+import dominio.*;
 
 public class Inicio {
        public static void main(String[] Args){
-        Sistema sis = new Sistema();
-        Interfaz inte = new Interfaz(sis);
-        inte.menu();
+           System.out.println("yeaaaa");
+            Sistema sis = new Sistema();
+            Interfaz inte = new Interfaz(sis);
+            System.out.println("yaaa");
+            for(Ficha ficha: sis.getListaFichas()){
+                System.out.println(ficha.imprimir(true));
+            }
+        
     } 
 }

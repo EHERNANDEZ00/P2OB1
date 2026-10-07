@@ -45,6 +45,27 @@ public class Ficha {
     public void setColor(char color) {
         this.color = color;
     }
-    
+   
+    /**
+     *
+     * @param tamanoGrande
+     * @return
+     */
+    public String imprimir(boolean tamanoGrande){
+        int porLinea = 3;
+        int max = 9;
+        String aVer = this.repChica;
+        if(tamanoGrande){porLinea = 5; max = 25; aVer = this.repGrande;}
+        String aRetornar = "";
+        for(int i = 0; i < max; i++){
+            String caracterAColocar = aVer.charAt(i) == '.' ? " ": (aVer.charAt(i) + "");
+            if(i % porLinea == 0 && i != 0){
+                aRetornar = "\n" + caracterAColocar;
+            } else {
+                aRetornar += caracterAColocar;
+            }
+        }
+        return aRetornar;
+    }
     
 }

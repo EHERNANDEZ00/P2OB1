@@ -8,10 +8,10 @@ public class Disenador {
     private int cantidadMurales;
     private String direccion;
 
-    public Disenador(String nombre, String email, int cantidadMurales, String direccion) {
+    public Disenador(String nombre, String email, String direccion) {
         this.nombre = nombre;
         this.email = email;
-        this.cantidadMurales = cantidadMurales;
+        this.cantidadMurales = 0;
         this.direccion = direccion;
     }
     
