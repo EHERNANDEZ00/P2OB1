@@ -154,7 +154,7 @@ public class Interfaz {
     
     public void verFichas(){
         for(Ficha ficha : sist.getListaFichas()){
-            System.out.println(ficha.imprimir(true));
+            System.out.println(ficha);
             
         }
     }

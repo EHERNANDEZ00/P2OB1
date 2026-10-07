@@ -60,11 +60,18 @@ public class Ficha {
         for(int i = 0; i < max; i++){
             String caracterAColocar = aVer.charAt(i) == '.' ? " ": (aVer.charAt(i) + "");
             if(i % porLinea == 0 && i != 0){
-                aRetornar = "\n" + caracterAColocar;
+                aRetornar += "\n" + caracterAColocar;
             } else {
                 aRetornar += caracterAColocar;
             }
         }
+        return aRetornar;
+    }
+    
+    @Override
+    public String toString(){
+        String aRetornar = "";
+        aRetornar += "Ficha: " + this.nombre + "\nColor: " + this.color + "\nTamaño Chico \n" + this.imprimir(false) + "\n Tamaño Grande \n" + this.imprimir(true);
         return aRetornar;
     }
     
