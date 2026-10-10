@@ -128,16 +128,114 @@ public class Interfaz {
         String direccion = pedirString("Ingrese la direccion del disenador");
         sist.agregarDisenador(new Disenador(nombre, email, direccion));
     }
-    public void registrarFicha(){
-        
+public void registrarFicha(){
+        String nombre = pedirString("Ingrese el nombre de la ficha: ").toUpperCase();
+        boolean nombreOk = sist.validarNombreFicha(nombre);
+        while(!nombreOk){
+            nombre = pedirString("Una ficha con ese nombre ya existe, ingrese otro");
+            nombreOk = sist.validarNombreFicha(nombre);
+        }
+        String color = pedirString("Ingrese el color de la ficha ingrese: \nR -> Rojo\nA -> Azul\nB -> Blanco\nN -> Negro\nM -> Amarillo\nV -> Verde\nG -> Magenta\nC -> Celeste");
+        while(!(color.equals("R")|| color.equals("A")|| color.equals("B")|| color.equals("N")|| color.equals("M")|| color.equals("V")|| color.equals("G")) || color.equals("C")){
+            color = pedirString("Color no encontrado, ingrese \nR -> Rojo\nA -> Azul\nB -> Blanco\nN -> Negro\nM -> Amarillo\nV -> Verde\nG -> Magenta\nC -> Celeste");
+        }
+        char colorChar = color.charAt(0);
+        String disenoChico = pedirString("Ingrese el diseno chico de la ficha (Nueve caracteres)");
+        while(disenoChico.length() != 9){
+            disenoChico = pedirString("Ingrese una ficha del largo correcto, 9");
+        }
+        String disenoGrande = pedirString("Ingrese el diseno largo (Veinticinco caracteres)");
+        while(disenoGrande.length() != 25){
+            disenoGrande = pedirString("Ingrese el diseno del largo corrrecto, 25");
+        }
+        sist.agregarFicha(new Ficha(nombre, disenoChico, disenoGrande, colorChar));
+
     }
     
     public void crearMural(){
+        if(!(sist.getListaDisenadores().isEmpty())){
+            
+        String nMural = pedirString("Ingrese el nombre del mural");
+        Boolean okM = sist.validarNombreMural(nMural);
+        while(!okM){
+            System.out.println("Ese nombre de mural ya se encuentra en uso");
+            nMural = pedirString("Porfavor, ingrese un nuevo nombre para el mural");
+            okM = sist.validarNombreMural(nMural);
+        }
         
+         
+        for(int i = 0; i < sist.getListaDisenadores().size();i++){
+            System.out.println(i+") "+sist.getListaDisenadores().get(i).getNombre());
+        }
+        int indice = pedirNumero("¿Cual es el diseñador?",0,sist.getListaDisenadores().size()-1);
+        Disenador disenador = sist.getListaDisenadores().get(indice);
+        
+        
+        
+        String formato = pedirString("Tipo de formato");
+        while(!(formato.equals("D") || formato.equals("R") || formato.equals("F") || formato.equals("B") || formato.equals("M"))){
+            System.out.println("Ese formato no existe");
+            formato = pedirString("Ingrese nuevamente una opcion entre D,R,F,B,M");
+        }
+        char formatoChar = formato.charAt(0);
+        
+        Ficha fichaA = null;
+        Ficha fichaB = null;
+        int martin = 0;
+        while(martin == 0){
+        for(int i = 0; i < sist.getListaFichas().size();i++){
+            System.out.println(i+") "+sist.getListaFichas().get(i).getNombre());
+        }
+        int aux = pedirNumero("¿Cual es el diseñador?",0,sist.getListaFichas().size()-1);
+        
+        fichaA = sist.getListaFichas().get(aux);
+        
+        for(int i = 0; i < sist.getListaFichas().size();i++){
+            if(i != indice){
+                System.out.println(i+") "+sist.getListaFichas().get(i).getNombre());
+            }
+        }
+        int aux2 = pedirNumero("¿Cual es el diseñador?",0,sist.getListaFichas().size()-1);
+        fichaB = sist.getListaFichas().get(aux2);
+        
+        martin = aux-aux2;
+        if(martin == 0){
+            System.out.println("Error, no puede tener un mural de dos fichas iguales");
+        }
+        }
+        
+        sist.agregarMural(new Mural(nMural, disenador, formatoChar,fichaA,fichaB));
+        }else{
+            System.out.println("No hay diseñadores, ingrese un disenador para poder crear un mural");
+        }
     }
     
     public void modificarMural(){
-        
+        if(sist.getListaMurales().isEmpty()){
+            System.out.println("No hay murales para modificar");
+        } else {
+            int contador = 0;
+            for(Mural mur: sist.getListaMurales()){
+                System.out.println(contador+ ") " + mur.getNombre() + " desarrollado por: " + mur.getDisenador().getNombre());
+            }
+            int indexMural = pedirNumero("Seleccione un Mural: ", 0, sist.getListaMurales().size() -1);
+            Mural muralAModificar = sist.getListaMurales().get(indexMural);
+            boolean modificando = true;
+            while (modificando){
+                int opcion = pedirNumero(""Ingrese una opcion\n0) Volver\n1) Modificar posicion\n2) Modificar ficha\n3) Restaurar"", 0, 4);
+                switch (opcion){
+                    case 0:
+                        modificando = false;
+                        break;
+                    case 1:
+                        modificarPosicion();
+                        break;
+                    case 2:
+                        ModificarFicha();
+                    case 3
+                }
+            }
+        }
     }
     
     public void verMural(){
