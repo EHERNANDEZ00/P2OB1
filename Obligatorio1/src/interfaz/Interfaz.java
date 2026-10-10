@@ -145,7 +145,9 @@ public class Interfaz {
     }
     
     public void listaDisenadores(){
-        
+        for(Disenador dis: sist.getListaDisenadores()){
+            System.out.println(dis);
+        }
     }
     
     public void compararMurales(){

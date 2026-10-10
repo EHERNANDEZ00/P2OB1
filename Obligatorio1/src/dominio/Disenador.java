@@ -48,5 +48,9 @@ public class Disenador {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-    
+    /*@Override
+    public boolean equals(Object o){
+        return true;
+    }
+    */
 }
