@@ -46,11 +46,38 @@ public class Ficha {
         this.color = color;
     }
    
-    /**
-     *
-     * @param tamanoGrande
-     * @return
-     */
+    
+    public static String darColor(char color){
+        String retorno = "";
+        switch(color){
+            case 'R':
+                retorno += "\u001B[31m";
+                break;
+            case 'A':
+                retorno += "\u001B[34m";
+                break;
+            case 'B':
+                retorno += "\u001B[37m";
+                break;
+            case 'N':
+                retorno += "\u001B[30m";
+                break;
+            case 'M':
+                retorno += "\u001B[33m";
+                break;
+            case 'V':
+                retorno += "\u001B[32m";
+                break;
+            case 'G':
+                retorno += "\u001B[35m";
+                break;
+            case 'C':
+                retorno += "\u001B[37m";
+                break;
+                
+        }
+        return retorno;
+    }
     public String imprimir(boolean tamanoGrande){
         int porLinea = 3;
         int max = 9;
@@ -59,6 +86,7 @@ public class Ficha {
         String aRetornar = "";
         for(int i = 0; i < max; i++){
             String caracterAColocar = aVer.charAt(i) == '.' ? " ": (aVer.charAt(i) + "");
+            aRetornar += darColor(this.color);
             if(i % porLinea == 0 && i != 0){
                 aRetornar += "\n" + caracterAColocar;
             } else {

@@ -1,14 +1,13 @@
 package dominio;
-import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.util.Random;
 public class Mural {
     private String nombre;
     private Disenador disenador;
     private Ficha[][] mural;
     private Ficha[][] muralOriginal;
 
-    public Mural(String nombre, Disenador disenador, char function, Ficha fichovichA, Ficha fichovichB) {
+    public Mural(String nombre, Disenador disenador, char function, Ficha fichovichA, Ficha fichovichB, Ficha vacio, ArrayList arFicha){
         this.nombre = nombre;
         this.disenador = disenador;
         switch (function){
@@ -16,7 +15,7 @@ public class Mural {
                     this.mural = ordenD(fichovichA,fichovichB);
                     break;
             case 'R':
-                    this.mural = ordenR(fichovichA,fichovichB);
+                    this.mural = ordenR(fichovichA,fichovichB,vacio,arFicha);
                     break;
             case 'F':
                     this.mural = ordenF(fichovichA,fichovichB);
@@ -24,12 +23,18 @@ public class Mural {
             case 'B':
                     this.mural = ordenB(fichovichA,fichovichB);
                     break;
-            case 'M':
-                    this.mural = ordenM(fichovichA,fichovichB);
-                    break;
+            
         }
         this.muralOriginal = this.mural;
     }
+    
+    public Mural(String nombre, Disenador disenador, Ficha[][] muralM){
+        this.nombre = nombre;
+        this.disenador = disenador;
+        this.mural = muralM;
+        this.muralOriginal = this.mural;
+    }
+    
     
     public Ficha[][] ordenD(Ficha fichaA, Ficha fichaB){
         Ficha[][] muralD = new Ficha[10][12];
@@ -40,13 +45,22 @@ public class Mural {
         }
         return muralD;
     }
-        public Ficha[][] ordenR(Ficha fichaA, Ficha fichaB){
+        public Ficha[][] ordenR(Ficha fichaA, Ficha fichaB,Ficha vacio,ArrayList<Ficha> arFicha){
+        Random rand = new Random();
         Ficha[][] muralR = new Ficha[10][12];
         for(int i = 0; i < muralR.length; i++){
             for(int j = 0; j < muralR[0].length; j++){
-              muralR[i][j] = j%2 == 0? fichaA : fichaB;
+              muralR[i][j] = vacio;
             }
         }
+        int maxCol = rand.nextInt(1,13);
+        int maxFil = rand.nextInt(1,11);
+        
+            for (int i = 0; i < maxFil; i++) {
+                for (int j = 0; j < maxCol; j++) {
+                    muralR[i][j] = arFicha.get(rand.nextInt(0,arFicha.size()));
+                }
+            }
         return muralR;
     }
         public Ficha[][] ordenF(Ficha fichaA, Ficha fichaB){
@@ -70,31 +84,6 @@ public class Mural {
             }
         }
         return muralB;
-    }
-        public Ficha[][] ordenM(Ficha fichaA, Ficha fichaB){
-        Ficha[][] muralM = new Ficha[10][12];
-        String gervasio = "";
-        Scanner input = new Scanner(System.in);
-        for(int i = 0; i < muralM.length || !gervasio.equals("3"); i++){
-            for(int j = 0; j < muralM[0].length || !gervasio.equals("3"); j++){
-                System.out.println("Esta en la fila "+i+" y la columa "+j);
-                System.out.println("Quiere imprimir la ficha 1 o la ficha 2? En caso de no querer ninguna ingrese 3");
-                gervasio = input.nextLine();
-                if(gervasio.equals("1")){
-                    muralM[i][j] = fichaA;
-                }
-                if (gervasio.equals("2")) {
-                    muralM[i][j] = fichaB;
-                }else{
-                    while(!gervasio.equals("1")||!gervasio.equals("2")||!gervasio.equals("3")){
-                        System.out.println("Esa opcion no es correcta, porfavor ingrese 1, 2 o 3");
-                        gervasio = input.nextLine();
-                    }
-                }
-                
-            }
-        }
-        return muralM;
     }
     
     
@@ -138,5 +127,58 @@ public class Mural {
             }
         }
         return contenidos;
+    }
+    public String darColor(char color){
+        String retorno = "";
+        switch(color){
+            case 'R':
+                retorno += "\u001B[31m";
+                break;
+            case 'A':
+                retorno += "\u001B[34m";
+                break;
+            case 'B':
+                retorno += "\u001B[37m";
+                break;
+            case 'N':
+                retorno += "\u001B[30m";
+                break;
+            case 'M':
+                retorno += "\u001B[33m";
+                break;
+            case 'V':
+                retorno += "\u001B[32m";
+                break;
+            case 'G':
+                retorno += "\u001B[35m";
+                break;
+            case 'C':
+                retorno += "\u001B[37m";
+                break;
+                
+        }
+        return retorno;
+    }
+   
+    public String imprimir(boolean grande){
+        int posMax = 25;
+        int aAvanzar = 5;
+        if(!grande){
+            posMax = 9;
+            aAvanzar = 3;
+        }
+        String retorno = "";
+        for(Ficha[] fila: this.mural){
+            for(int posFila = 0; posFila < posMax; posFila++){
+                for(Ficha ficha: fila){
+                    retorno += darColor(ficha.getColor());
+                    retorno += ficha.imprimir(grande).replaceAll("\n", "").substring(posFila, posFila + aAvanzar);
+                }
+                posFila += aAvanzar -1;
+                retorno += "\n";
+            }
+        }
+        
+        return retorno;
     }
 }
