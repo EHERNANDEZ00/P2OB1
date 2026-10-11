@@ -2,6 +2,7 @@
 package interfaz;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.ArrayList;
 import dominio.*;
 
 public class Interfaz {
@@ -222,23 +223,46 @@ public void registrarFicha(){
             Mural muralAModificar = sist.getListaMurales().get(indexMural);
             boolean modificando = true;
             while (modificando){
-                int opcion = pedirNumero(""Ingrese una opcion\n0) Volver\n1) Modificar posicion\n2) Modificar ficha\n3) Restaurar"", 0, 4);
+                int opcion = pedirNumero("Ingrese una opcion\n0) Volver\n1) Modificar posicion\n2) Modificar ficha\n3) Restaurar", 0, 4);
                 switch (opcion){
                     case 0:
                         modificando = false;
                         break;
                     case 1:
-                        modificarPosicion();
+                        modificarPosicion(muralAModificar);
                         break;
                     case 2:
-                        ModificarFicha();
-                    case 3
+                        modificarFicha(muralAModificar);
+                    case 3:
+                        muralAModificar.restaurar();
                 }
             }
         }
     }
     
     public void verMural(){
+        for(int i = 0; i < sist.getListaDisenadores().size(); i++){
+            System.out.println(i + ") " + sist.getListaDisenadores().get(i).getNombre());
+        }
+        int indexDisenador = pedirNumero("Seleccione un Disenador (0 - " + (sist.getListaDisenadores().size() -1), 0, sist.getListaDisenadores().size() -1);
+        Disenador dis = sist.getListaDisenadores().get(indexDisenador);
+        ArrayList<Mural> murales = sist.muralesDelDisenador(dis);
+        if(murales.isEmpty()){
+            System.out.println("Este Disenador aun no tiene murales para mostrar");
+        } else {
+            int contador = 0;
+            for(Mural mur : murales){
+                System.out.println(contador + ") " + mur.getNombre());
+            }
+            int indexMural = pedirNumero("Seleccione un mural: ", 0, murales.size() -1);
+            Mural muralAMostrar = murales.get(indexMural);
+            for(Ficha[] fila : muralAMostrar.getMural()){
+                for(Ficha ficha : fila){
+                    System.out.print(ficha.imprimir(false));
+                }
+                System.out.println("");
+            }
+        }
         
     }
     
@@ -258,7 +282,38 @@ public void registrarFicha(){
             
         }
     }
+    public void modificarPosicion(Mural mur){
+        int fila = pedirNumero("Ingrese la fila de la ficha a modificar (1 - 10): ", 1, 10) - 1;
+        int columna = pedirNumero("Ingrese la columna de la ficha a modificar (1 - 12): ",1, 12) -1;
+        Ficha ficha = pedirFicha();
+        mur.cambiarPosicion(fila, columna, ficha);
+    }
+    public void modificarFicha(Mural mur){
+        int contador = 1;
+        for(Ficha ficha : mur.fichasContenidas()){
+            System.out.println(contador + ") " + ficha.getNombre());
+            contador++;  
+        }
+        int indexFicha = pedirNumero("Seleccione la ficha que desea cambiar del mural: ", 1, mur.fichasContenidas().size()) -1;
+        Ficha fichaACambiar = sist.getListaFichas().get(indexFicha);
+        System.out.println("Elija la nueva ficha");
+        Ficha fichaNueva = pedirFicha();
+        for(int i = 0; i < mur.getMural().length; i++){
+            for(int j = 0; j < mur.getMural()[0].length; j++){
+                if (mur.getMural()[i][j] == fichaACambiar){
+                    mur.cambiarPosicion(i, j, fichaNueva);
+                }
+            }
+        }
+    }
     
+    public Ficha pedirFicha(){
+        for(int i = 0; i < sist.getListaFichas().size(); i++){
+            System.out.println((i + 1) + ") " + sist.getListaFichas().get(i).getNombre());
+        }
+        int indexFicha = pedirNumero("Seleccione la ficha (1 -" + sist.getListaFichas().size() + "): ", 1, sist.getListaFichas().size())-1;
+        return sist.getListaFichas().get(indexFicha);
+    }
 }
 
 

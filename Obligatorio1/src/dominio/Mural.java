@@ -1,10 +1,12 @@
 package dominio;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Mural {
     private String nombre;
     private Disenador disenador;
     private Ficha[][] mural;
+    private Ficha[][] muralOriginal;
 
     public Mural(String nombre, Disenador disenador, char function, Ficha fichovichA, Ficha fichovichB) {
         this.nombre = nombre;
@@ -26,6 +28,7 @@ public class Mural {
                     this.mural = ordenM(fichovichA,fichovichB);
                     break;
         }
+        this.muralOriginal = this.mural;
     }
     
     public Ficha[][] ordenD(Ficha fichaA, Ficha fichaB){
@@ -119,6 +122,21 @@ public class Mural {
     public void setMural(Ficha[][] mural) {
         this.mural = mural;
     }
-    
-    
+    public void cambiarPosicion (int fila, int columna, Ficha ficha){
+        this.mural[fila][columna] = ficha;
+    }
+    public void restaurar(){
+        this.mural = this.muralOriginal;
+    }
+    public ArrayList<Ficha> fichasContenidas(){
+        ArrayList<Ficha> contenidos = new ArrayList<>();
+        for(Ficha[] fila : this.mural){
+            for(Ficha ficha : fila){
+                if(!contenidos.contains(ficha)){
+                    contenidos.add(ficha);
+                }
+            }
+        }
+        return contenidos;
+    }
 }

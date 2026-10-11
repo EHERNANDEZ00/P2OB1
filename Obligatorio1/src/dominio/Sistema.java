@@ -90,5 +90,14 @@ public class Sistema {
         agregarFicha(DIAMANTE);
         agregarFicha(VACIA);
     }
+    public ArrayList<Mural> muralesDelDisenador(Disenador dis){
+        ArrayList<Mural> murales = new ArrayList<>();
+        for(Mural mur: this.getListaMurales()){
+            if(mur.getDisenador() == dis){
+                murales.add(mur);
+            }
+        }
+        return murales;
+    }
     
 }
