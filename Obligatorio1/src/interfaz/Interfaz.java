@@ -233,7 +233,7 @@ public void registrarFicha(){
 
                 sist.agregarMural(new Mural(nMural, disenador, muralM));
             } else {
-                sist.agregarMural(new Mural(nMural, disenador, formatoChar, fichaA, fichaB, vacio, sist.getListaFichas()));
+                sist.agregarMural(new Mural(nMural, disenador, formatoChar, fichaA, fichaB, sist.getListaFichas()));
             }
         } else {
             System.out.println("No hay disenadores, ingrese un disenador para poder crear un mural");

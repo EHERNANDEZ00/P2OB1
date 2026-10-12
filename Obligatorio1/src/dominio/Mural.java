@@ -7,7 +7,7 @@ public class Mural {
     private Ficha[][] mural;
     private Ficha[][] muralOriginal;
 
-    public Mural(String nombre, Disenador disenador, char function, Ficha fichovichA, Ficha fichovichB, Ficha vacio, ArrayList arFicha){
+    public Mural(String nombre, Disenador disenador, char function, Ficha fichovichA, Ficha fichovichB, ArrayList arFicha){
         this.nombre = nombre;
         this.disenador = disenador;
         switch (function){
@@ -15,7 +15,7 @@ public class Mural {
                     this.mural = ordenD(fichovichA,fichovichB);
                     break;
             case 'R':
-                    this.mural = ordenR(fichovichA,fichovichB,vacio,arFicha);
+                    this.mural = ordenR(arFicha);
                     break;
             case 'F':
                     this.mural = ordenF(fichovichA,fichovichB);
@@ -45,12 +45,12 @@ public class Mural {
         }
         return muralD;
     }
-        public Ficha[][] ordenR(Ficha fichaA, Ficha fichaB,Ficha vacio,ArrayList<Ficha> arFicha){
+        public Ficha[][] ordenR(ArrayList<Ficha> arFicha){
         Random rand = new Random();
         Ficha[][] muralR = new Ficha[10][12];
         for(int i = 0; i < muralR.length; i++){
             for(int j = 0; j < muralR[0].length; j++){
-              muralR[i][j] = vacio;
+              muralR[i][j] = arFicha.get(7);
             }
         }
         int maxCol = rand.nextInt(1,13);
