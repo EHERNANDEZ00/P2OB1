@@ -239,8 +239,8 @@ public void registrarFicha(){
             System.out.println("No hay disenadores, ingrese un disenador para poder crear un mural");
                      
         }
-            sist.getListaMurales().get(sist.getListaMurales().size()-1).imprimir(true);
-            sist.getListaMurales().get(sist.getListaMurales().size()-1).imprimir(true);  
+            //sist.getListaMurales().get(sist.getListaMurales().size()-1).imprimir(true);
+            //sist.getListaMurales().get(sist.getListaMurales().size()-1).imprimir(true);  
     }
 
     
@@ -296,9 +296,15 @@ public void registrarFicha(){
             while(!opcion.equals("C") && !opcion.equals("G")){
                 opcion = pedirString("Opcion invalida, ingrese C o G");
             }
+            boolean mostrandoG = opcion.equals("G");
             while (!opcion.equals("S")){
-                System.out.println(muralAMostrar.imprimir(true));
-                opcion = pedirString("aa");
+                if(mostrandoG){
+                   imprimirMuralGrande(muralAMostrar);
+                } else {
+                    imprimirMuralChico(muralAMostrar);
+                }
+                mostrandoG = !mostrandoG;
+                opcion = pedirString("Presione cualquier tecla para alternar el estilo del mural\nPresione S para salir");
             }
         }
         
@@ -351,6 +357,62 @@ public void registrarFicha(){
         }
         int indexFicha = pedirNumero("Seleccione la ficha (1 -" + sist.getListaFichas().size() + "): ", 1, sist.getListaFichas().size())-1;
         return sist.getListaFichas().get(indexFicha);
+    }
+    public static String darColor(char color){
+        String retorno = "";
+        switch(color){
+            case 'R':
+                retorno += "\u001B[31m";
+                break;
+            case 'A':
+                retorno += "\u001B[34m";
+                break;
+            case 'B':
+                retorno += "\u001B[37m";
+                break;
+            case 'N':
+                retorno += "\u001B[30m";
+                break;
+            case 'M':
+                retorno += "\u001B[33m";
+                break;
+            case 'V':
+                retorno += "\u001B[32m";
+                break;
+            case 'G':
+                retorno += "\u001B[35m";
+                break;
+            case 'C':
+                retorno += "\u001B[37m";
+                break;
+                
+        }
+        return retorno;
+    }
+
+    public void imprimirMuralGrande(Mural mur){
+        for(Ficha[] linea: mur.getMural()){
+            for(int i = 0; i < 25; i += 5){
+                String lineaAImprimir = "";
+                for(Ficha ficha: linea){
+                    lineaAImprimir += darColor(ficha.getColor());
+                    lineaAImprimir += ficha.getRepGrande().substring(i, i + 5);
+                }
+                System.out.println(lineaAImprimir);
+            }
+        }
+    }
+    public void imprimirMuralChico(Mural mur){
+        for(Ficha[] linea: mur.getMural()){
+            for(int i = 0; i < 9; i += 3){
+                String lineaAImprimir = "";
+                for(Ficha ficha: linea){
+                    lineaAImprimir += darColor(ficha.getColor());
+                    lineaAImprimir += ficha.getRepChica().substring(i, i + 3);
+                }
+                System.out.println(lineaAImprimir);
+            }
+        }
     }
 }
 

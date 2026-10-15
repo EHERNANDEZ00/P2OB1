@@ -128,57 +128,6 @@ public class Mural {
         }
         return contenidos;
     }
-    public String darColor(char color){
-        String retorno = "";
-        switch(color){
-            case 'R':
-                retorno += "\u001B[31m";
-                break;
-            case 'A':
-                retorno += "\u001B[34m";
-                break;
-            case 'B':
-                retorno += "\u001B[37m";
-                break;
-            case 'N':
-                retorno += "\u001B[30m";
-                break;
-            case 'M':
-                retorno += "\u001B[33m";
-                break;
-            case 'V':
-                retorno += "\u001B[32m";
-                break;
-            case 'G':
-                retorno += "\u001B[35m";
-                break;
-            case 'C':
-                retorno += "\u001B[37m";
-                break;
-                
-        }
-        return retorno;
-    }
-   
-    public String imprimir(boolean grande){
-        int posMax = 25;
-        int aAvanzar = 5;
-        if(!grande){
-            posMax = 9;
-            aAvanzar = 3;
-        }
-        String retorno = "";
-        for(Ficha[] fila: this.mural){
-            for(int posFila = 0; posFila < posMax; posFila++){
-                for(Ficha ficha: fila){
-                    retorno += darColor(ficha.getColor());
-                    retorno += ficha.imprimir(grande).replaceAll("\n", "").substring(posFila, posFila + aAvanzar);
-                }
-                posFila += aAvanzar -1;
-                retorno += "\n";
-            }
-        }
-        
-        return retorno;
-    }
+    
 }
+   
