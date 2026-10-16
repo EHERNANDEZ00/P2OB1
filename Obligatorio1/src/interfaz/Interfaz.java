@@ -16,42 +16,7 @@ public class Interfaz {
     Scanner input = new Scanner(System.in);
 
 
-    private int pedirNumero(String mensaje, int min, int max){
-        int resultado = 0;
-        boolean ok = true;
-        while(ok){
-            try{
-                System.out.println(mensaje);
-                resultado = input.nextInt();
-                if(min <= resultado && max >= resultado ){
-                    ok = false;
-                    input.nextLine();
-                }else{
-                    System.out.println("Dato incorrecto, ingrese un valor dentro del parametro indicado.");
-                }
-            }
-            catch(InputMismatchException e){
-                System.out.println("Debe ingresar un número");
-                input.nextLine();
-            }
-        }
-        return resultado;
-    }
     
-    private String pedirString(String mensaje){
-        String resultado = "";
-        boolean ok = true;
-        while (ok){
-                System.out.println(mensaje);
-                resultado = input.nextLine();
-                if(resultado != null && !resultado.trim().isEmpty()){
-                    ok = false;
-                } else {
-                    System.out.println("Dato incorrecto, debe ingresar algo");
-                } 
-        }
-        return resultado;
-    }
     
     public void imprimirMenu(){
             System.out.println("======MENU======");
@@ -66,9 +31,13 @@ public class Interfaz {
             System.out.println("8) Comparar similitud de murales");
             System.out.println("9) Visualizar todas las fichas");
     }  
+    
+    //Menu
+    
     public void menu(){ 
         int opcion = -1;
         while(opcion!= 0){
+            limpiar();
             imprimirMenu();
             opcion = pedirNumero("Ingrese la opcion del menu que desea",0,9);
             switch(opcion){
@@ -109,7 +78,10 @@ public class Interfaz {
         }        
     }
     
+    //Metodos del menu
+    
     public void informacionAutores(){
+        limpiar();
         System.out.println("Eduardo Hernandez - 370255");
         System.out.println("Matias Pintos - 379603");
         System.out.println("");
@@ -119,9 +91,11 @@ public class Interfaz {
     
     
     public void registrarDisenador(){
+        limpiar();
         String nombre = pedirString("Ingrese el nombre del disenador");
         boolean nombreValido = sist.validarNombreDisenador(nombre);
         while(!nombreValido){
+            limpiar();
             nombre = pedirString("Ese nombre no es valido, elija otro");
             nombreValido = sist.validarNombreDisenador(nombre);
         }
@@ -130,6 +104,7 @@ public class Interfaz {
         sist.agregarDisenador(new Disenador(nombre, email, direccion));
     }
 public void registrarFicha(){
+        limpiar();
         String nombre = pedirString("Ingrese el nombre de la ficha: ").toUpperCase();
         boolean nombreOk = sist.validarNombreFicha(nombre);
         while(!nombreOk){
@@ -138,15 +113,18 @@ public void registrarFicha(){
         }
         String color = pedirString("Ingrese el color de la ficha ingrese: \nR -> Rojo\nA -> Azul\nB -> Blanco\nN -> Negro\nM -> Amarillo\nV -> Verde\nG -> Magenta\nC -> Celeste");
         while(!(color.equals("R")|| color.equals("A")|| color.equals("B")|| color.equals("N")|| color.equals("M")|| color.equals("V")|| color.equals("G")) || color.equals("C")){
+            limpiar();
             color = pedirString("Color no encontrado, ingrese \nR -> Rojo\nA -> Azul\nB -> Blanco\nN -> Negro\nM -> Amarillo\nV -> Verde\nG -> Magenta\nC -> Celeste");
         }
         char colorChar = color.charAt(0);
         String disenoChico = pedirString("Ingrese el diseno chico de la ficha (Nueve caracteres)");
         while(disenoChico.length() != 9){
+            limpiar();
             disenoChico = pedirString("Ingrese una ficha del largo correcto, 9");
         }
         String disenoGrande = pedirString("Ingrese el diseno largo (Veinticinco caracteres)");
         while(disenoGrande.length() != 25){
+            limpiar();
             disenoGrande = pedirString("Ingrese el diseno del largo corrrecto, 25");
         }
         sist.agregarFicha(new Ficha(nombre, disenoChico, disenoGrande, colorChar));
@@ -154,10 +132,12 @@ public void registrarFicha(){
     }
     
     public void crearMural() {
+        limpiar();
         if (!(sist.getListaDisenadores().isEmpty())) {
             String nMural = pedirString("Ingrese el nombre del mural");
             Boolean okM = sist.validarNombreMural(nMural);
             while (!okM) {
+                limpiar();
                 System.out.println("Ese nombre de mural ya se encuentra en uso");
                 nMural = pedirString("Porfavor, ingrese un nuevo nombre para el mural");
                 okM = sist.validarNombreMural(nMural);
@@ -169,8 +149,9 @@ public void registrarFicha(){
             int indice = pedirNumero("Cual es el disenador?", 0, sist.getListaDisenadores().size() - 1);
             Disenador disenador = sist.getListaDisenadores().get(indice);
 
-            String formato = pedirString("Tipo de formato");
+            String formato = pedirString("Seleccione el tipo de formato\nD) Damero\nR) Random\nF) Alternando por filas\nB) Borde exterior\nM) Manual");
             while (!(formato.equals("D") || formato.equals("R") || formato.equals("F") || formato.equals("B") || formato.equals("M"))) {
+                limpiar();
                 System.out.println("Ese formato no existe");
                 formato = pedirString("Ingrese nuevamente una opcion entre D,R,F,B,M");
             }
@@ -239,8 +220,8 @@ public void registrarFicha(){
             System.out.println("No hay disenadores, ingrese un disenador para poder crear un mural");
                      
         }
-            //sist.getListaMurales().get(sist.getListaMurales().size()-1).imprimir(true);
-            //sist.getListaMurales().get(sist.getListaMurales().size()-1).imprimir(true);  
+            imprimirMuralGrande(sist.getListaMurales().get(sist.getListaMurales().size()-1));
+            imprimirMuralChico(sist.getListaMurales().get(sist.getListaMurales().size()-1));  
     }
 
     
@@ -248,6 +229,7 @@ public void registrarFicha(){
     
     
     public void modificarMural(){
+        limpiar();
         if(sist.getListaMurales().isEmpty()){
             System.out.println("No hay murales para modificar");
         } else {
@@ -277,6 +259,7 @@ public void registrarFicha(){
     }
     
     public void verMural(){
+        limpiar();
         for(int i = 0; i < sist.getListaDisenadores().size(); i++){
             System.out.println(i + ") " + sist.getListaDisenadores().get(i).getNombre());
         }
@@ -289,6 +272,7 @@ public void registrarFicha(){
             int contador = 0;
             for(Mural mur : murales){
                 System.out.println(contador + ") " + mur.getNombre());
+                contador ++;
             }
             int indexMural = pedirNumero("Seleccione un mural: ", 0, murales.size() -1);
             Mural muralAMostrar = murales.get(indexMural);
@@ -299,8 +283,10 @@ public void registrarFicha(){
             boolean mostrandoG = opcion.equals("G");
             while (!opcion.equals("S")){
                 if(mostrandoG){
+                    limpiar();
                    imprimirMuralGrande(muralAMostrar);
                 } else {
+                    limpiar();
                     imprimirMuralChico(muralAMostrar);
                 }
                 mostrandoG = !mostrandoG;
@@ -326,6 +312,57 @@ public void registrarFicha(){
             
         }
     }
+    
+    
+    public Ficha pedirFicha(){
+        for(int i = 0; i < sist.getListaFichas().size(); i++){
+            System.out.println((i + 1) + ") " + sist.getListaFichas().get(i).getNombre());
+        }
+        int indexFicha = pedirNumero("Seleccione la ficha (1 -" + sist.getListaFichas().size() + "): ", 1, sist.getListaFichas().size())-1;
+        return sist.getListaFichas().get(indexFicha);
+    }
+    
+    
+    //Metodos para pedir datos
+    private int pedirNumero(String mensaje, int min, int max){
+        int resultado = 0;
+        boolean ok = true;
+        while(ok){
+            try{
+                System.out.println(mensaje);
+                resultado = input.nextInt();
+                if(min <= resultado && max >= resultado ){
+                    ok = false;
+                    input.nextLine();
+                }else{
+                    System.out.println("Dato incorrecto, ingrese un valor dentro del parametro indicado.");
+                }
+            }
+            catch(InputMismatchException e){
+                System.out.println("Debe ingresar un número");
+                input.nextLine();
+            }
+        }
+        return resultado;
+    }
+    
+    private String pedirString(String mensaje){
+        String resultado = "";
+        boolean ok = true;
+        while (ok){
+                System.out.println(mensaje);
+                resultado = input.nextLine();
+                if(resultado != null && !resultado.trim().isEmpty()){
+                    ok = false;
+                } else {
+                    System.out.println("Dato incorrecto, debe ingresar algo");
+                } 
+        }
+        return resultado;
+    }
+    
+    //Helpers para modificar mural
+    
     public void modificarPosicion(Mural mur){
         int fila = pedirNumero("Ingrese la fila de la ficha a modificar (1 - 10): ", 1, 10) - 1;
         int columna = pedirNumero("Ingrese la columna de la ficha a modificar (1 - 12): ",1, 12) -1;
@@ -351,13 +388,8 @@ public void registrarFicha(){
         }
     }
     
-    public Ficha pedirFicha(){
-        for(int i = 0; i < sist.getListaFichas().size(); i++){
-            System.out.println((i + 1) + ") " + sist.getListaFichas().get(i).getNombre());
-        }
-        int indexFicha = pedirNumero("Seleccione la ficha (1 -" + sist.getListaFichas().size() + "): ", 1, sist.getListaFichas().size())-1;
-        return sist.getListaFichas().get(indexFicha);
-    }
+    //Metodos para imprimir
+    
     public static String darColor(char color){
         String retorno = "";
         switch(color){
@@ -389,7 +421,7 @@ public void registrarFicha(){
         }
         return retorno;
     }
-
+    
     public void imprimirMuralGrande(Mural mur){
         for(Ficha[] linea: mur.getMural()){
             for(int i = 0; i < 25; i += 5){
@@ -412,6 +444,12 @@ public void registrarFicha(){
                 }
                 System.out.println(lineaAImprimir);
             }
+        }
+    }
+    
+    public void limpiar(){
+        for(int i = 0; i < 50; i++){
+            System.out.println("");
         }
     }
 }

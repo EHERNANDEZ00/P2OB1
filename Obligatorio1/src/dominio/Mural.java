@@ -36,7 +36,7 @@ public class Mural {
     }
     
     
-    public Ficha[][] ordenD(Ficha fichaA, Ficha fichaB){
+    private Ficha[][] ordenD(Ficha fichaA, Ficha fichaB){
         Ficha[][] muralD = new Ficha[10][12];
         for(int i = 0; i < muralD.length; i++){
             for(int j = 0; j < muralD[0].length; j++){
@@ -45,7 +45,7 @@ public class Mural {
         }
         return muralD;
     }
-        public Ficha[][] ordenR(ArrayList<Ficha> arFicha){
+        private Ficha[][] ordenR(ArrayList<Ficha> arFicha){
         Random rand = new Random();
         Ficha[][] muralR = new Ficha[10][12];
         for(int i = 0; i < muralR.length; i++){
@@ -63,7 +63,7 @@ public class Mural {
             }
         return muralR;
     }
-        public Ficha[][] ordenF(Ficha fichaA, Ficha fichaB){
+        private Ficha[][] ordenF(Ficha fichaA, Ficha fichaB){
         Ficha[][] muralF = new Ficha[10][12];
         for(int i = 0; i < muralF.length; i++){
             for(int j = 0; j < muralF[0].length; j++){
@@ -72,14 +72,14 @@ public class Mural {
         }
         return muralF;
     }
-        public Ficha[][] ordenB(Ficha fichaA, Ficha fichaB){
+        private Ficha[][] ordenB(Ficha fichaA, Ficha fichaB){
         Ficha[][] muralB = new Ficha[10][12];
         for(int i = 0; i < muralB.length; i++){
             for(int j = 0; j < muralB[0].length; j++){
                 if (i==0 || i == muralB.length || j == 0 || j == muralB[0].length) {
-                    mural[i][j] = fichaA;
+                    muralB[i][j] = fichaA;
                 }else{
-                    mural[i][j] = fichaB;
+                    muralB[i][j] = fichaB;
                 }
             }
         }
