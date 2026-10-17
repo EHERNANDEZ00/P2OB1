@@ -216,12 +216,13 @@ public void registrarFicha(){
             } else {
                 sist.agregarMural(new Mural(nMural, disenador, formatoChar, fichaA, fichaB, sist.getListaFichas()));
             }
+            imprimirMuralGrande(sist.getListaMurales().get(sist.getListaMurales().size()-1));
+            imprimirMuralChico(sist.getListaMurales().get(sist.getListaMurales().size()-1)); 
         } else {
             System.out.println("No hay disenadores, ingrese un disenador para poder crear un mural");
+            esperar();
                      
-        }
-            imprimirMuralGrande(sist.getListaMurales().get(sist.getListaMurales().size()-1));
-            imprimirMuralChico(sist.getListaMurales().get(sist.getListaMurales().size()-1));  
+        } 
     }
 
     
@@ -276,7 +277,7 @@ public void registrarFicha(){
             }
             int indexMural = pedirNumero("Seleccione un mural: ", 0, murales.size() -1);
             Mural muralAMostrar = murales.get(indexMural);
-            String opcion = pedirString("Desea visualizarlo en formato chico o grande?\nChico ingrese: c\nO\nG");
+            String opcion = pedirString("Desea visualizarlo en formato chico o grande?\nC) Chico\nG) Grande");
             while(!opcion.equals("C") && !opcion.equals("G")){
                 opcion = pedirString("Opcion invalida, ingrese C o G");
             }
@@ -290,7 +291,8 @@ public void registrarFicha(){
                     imprimirMuralChico(muralAMostrar);
                 }
                 mostrandoG = !mostrandoG;
-                opcion = pedirString("Presione cualquier tecla para alternar el estilo del mural\nPresione S para salir");
+                System.out.println("Presione enter para alternar entre tamaños de mural, presione S para salir");
+                opcion = input.nextLine();
             }
         }
         
@@ -306,10 +308,15 @@ public void registrarFicha(){
         
     }
     
+
     public void verFichas(){
         for(Ficha ficha : sist.getListaFichas()){
-            System.out.println(ficha);
-            
+            System.out.println("Ficha: " + ficha.getNombre());
+            System.out.println("Color: " + ficha.getColor());
+            System.out.println("Tamaño chico: ");
+            imprimirFicha(ficha, false);
+            System.out.println("Tamaño grande: ");
+            imprimirFicha(ficha, true);
         }
     }
     
@@ -324,6 +331,11 @@ public void registrarFicha(){
     
     
     //Metodos para pedir datos
+    public void esperar(){
+        System.out.println("Presione cualquier tecla para continuar");
+        input.nextLine();
+    }
+    
     private int pedirNumero(String mensaje, int min, int max){
         int resultado = 0;
         boolean ok = true;
@@ -345,6 +357,7 @@ public void registrarFicha(){
         }
         return resultado;
     }
+    
     
     private String pedirString(String mensaje){
         String resultado = "";
@@ -387,8 +400,31 @@ public void registrarFicha(){
             }
         }
     }
-    
     //Metodos para imprimir
+    
+    public void imprimirFicha(Ficha ficha, boolean grande){
+        int cantPorLinea = 3;
+        int cantMax = 9;
+        String delQueImprimir = ficha.getRepChica();
+        if(grande){
+            cantPorLinea = 5;
+            cantMax = 25;
+            delQueImprimir = ficha.getRepGrande();
+        }
+        for(int i = 0; i < cantMax; i++){
+            char aImprimir = delQueImprimir.charAt(i);
+            if (aImprimir == '.'){
+                aImprimir = ' ';
+            }
+            if( i != 0 && i % cantPorLinea == 0){
+                System.out.println("");
+                System.out.print(darColor(ficha.getColor()) + aImprimir);
+            } else {
+                 System.out.print(darColor(ficha.getColor()) + aImprimir);
+            }
+        }
+        System.out.println("\u001B[0m");  
+    }
     
     public static String darColor(char color){
         String retorno = "";
@@ -428,7 +464,10 @@ public void registrarFicha(){
                 String lineaAImprimir = "";
                 for(Ficha ficha: linea){
                     lineaAImprimir += darColor(ficha.getColor());
-                    lineaAImprimir += ficha.getRepGrande().substring(i, i + 5);
+                    String lineaAVerificar = ficha.getRepGrande().substring(i, i + 5);
+                    for(int l = 0; l < 5; l++){
+                        lineaAImprimir += lineaAVerificar.charAt(l) == '.' ? " " : lineaAVerificar.charAt(l);
+                    }
                 }
                 System.out.println(lineaAImprimir);
             }
@@ -440,7 +479,10 @@ public void registrarFicha(){
                 String lineaAImprimir = "";
                 for(Ficha ficha: linea){
                     lineaAImprimir += darColor(ficha.getColor());
-                    lineaAImprimir += ficha.getRepChica().substring(i, i + 3);
+                    String lineaAVerificar = ficha.getRepGrande().substring(i, i + 3);
+                    for(int l = 0; l < 3; l++){
+                        lineaAImprimir += lineaAVerificar.charAt(l) == '.' ? " " : lineaAVerificar.charAt(l);
+                    }
                 }
                 System.out.println(lineaAImprimir);
             }

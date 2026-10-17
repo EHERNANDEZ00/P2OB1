@@ -45,15 +45,5 @@ public class Ficha {
     public void setColor(char color) {
         this.color = color;
     }
-   
-    
-    
-    
-    @Override
-    public String toString(){
-        String aRetornar = "";
-        aRetornar += "Ficha: " + this.nombre + "\nColor: " + this.color + "\nTamaño Chico \n" + "\n Tamaño Grande \n";
-        return aRetornar;
-    }
     
 }
