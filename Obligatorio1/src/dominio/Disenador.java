@@ -7,12 +7,14 @@ public class Disenador {
     private String email;
     private int cantidadMurales;
     private String direccion;
+    private int numeroDeMurales;
 
     public Disenador(String nombre, String email, String direccion) {
         this.nombre = nombre;
         this.email = email;
         this.cantidadMurales = 0;
         this.direccion = direccion;
+        this.numeroDeMurales = 0;
     }
     
     

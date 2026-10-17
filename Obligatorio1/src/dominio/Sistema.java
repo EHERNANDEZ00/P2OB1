@@ -74,11 +74,11 @@ public class Sistema {
     private void precargar(){
         Ficha SOL = new Ficha("SOL", "\\|/-*-/|\\", "..|...\\|/.--*--./|\\...|..", 'M');
         Ficha CUADRADO = new Ficha("CUADRADO", "+-+|.|+-+", "+---+|...||...||...|+---+", 'N');
-        Ficha CORAZON = new Ficha("CORAZON", "*.****.*.", "**.************.***...*..", 'C');
+        Ficha CORAZON = new Ficha("CORAZON", "*.****.*.", "**.************.***...*..", 'R');
         Ficha COPA = new Ficha("COPA", "\\./.|./_\\", "\\.../.\\./...|....|.../_\\.", 'C');
         Ficha ARBOL = new Ficha("ARBOL", ".^.^^^.|.", "..^...^^^.^^^^^..|.../.\\.", 'V');
         Ficha GATO = new Ficha("GATO", "^.^o.o=^=", "/\\_/\\(o.o).>^<../|\\../.\\.", 'A');
-        Ficha DIAMANTE = new Ficha("DIAMANTE", ".*.*.*.*.", "..*...*.*.*...*.*.*...*..", 'M');
+        Ficha DIAMANTE = new Ficha("DIAMANTE", ".*.*.*.*.", "..*...*.*.*...*.*.*...*..", 'G');
         Ficha VACIA = new Ficha("VACIA", ".........", ".........................", 'B');
         
         agregarFicha(SOL);
