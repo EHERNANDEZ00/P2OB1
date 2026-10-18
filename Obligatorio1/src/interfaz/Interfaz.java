@@ -330,15 +330,17 @@ public class Interfaz {
             int opcion = pedirNumero("Desea buscar en la representación grande o chica?\n 0) Grande\n1) chica", 0, 1);
             boolean grande = opcion == 0;
             if(grande){imprimirMuralGrande(muralAComparar);} else {imprimirMuralChico(muralAComparar);}
-            int filaInicio = pedirNumero("Seleccione la fila de inicio para comparar",1,10);
-            int columnaInicio = pedirNumero("Seleccione la columna de inicio para comparar",1,12);
+            int filaInicio = pedirNumero("Seleccione la fila de inicio para comparar",1,10)-1;
+            int columnaInicio = pedirNumero("Seleccione la columna de inicio para comparar",1,12)-1;
             int filaFinal = pedirNumero("Cuantas filas a partir de la seleccionada quiere comparar",1,10);
             while(filaInicio+filaFinal > 10){
                 System.out.println("Esta cantidad de filas ingresadas excede la cantidad de filas del mural");
+                filaFinal = pedirNumero("Cuantas filas a partir de la seleccionada quiere comparar",1,10);
             }
             int columnaFinal = pedirNumero("Cuantas columnas a partir de la seleccionada quiere comparar",1,12);
             while(columnaInicio+columnaFinal > 10){
                 System.out.println("Esta cantidad de columnas ingresadas excede la cantidad de columnas del mural");
+                columnaFinal = pedirNumero("Cuantas columnas a partir de la seleccionada quiere comparar",1,12);
             }
             Ficha[][] subMural = muralAComparar.obtenerSubMural(filaInicio,columnaInicio, filaFinal, columnaFinal);
             ArrayList<Mural> listaMurales = sist.compararSimilitud(subMural, muralAComparar);

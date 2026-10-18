@@ -112,9 +112,9 @@ public class Sistema {
             if(mur != original){
                 boolean buscando = true;
                 int filas = subMural.length;
-                int columnas = subMural.length;
-                for(int f = 0; f + filas < 10 && buscando; f++){
-                    for(int c = 0; c + columnas < 12 && buscando; c++){
+                int columnas = subMural[0].length;
+                for(int f = 0; f + filas <= 10 && buscando; f++){
+                    for(int c = 0; c + columnas <= 12 && buscando; c++){
                         boolean todosIguales = true;
                         for(int i = 0; i < filas && todosIguales; i++){
                             for(int j = 0; j < columnas && todosIguales; j++){
