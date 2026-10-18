@@ -106,7 +106,7 @@ public class Sistema {
         agregarFicha(VACIA);
     }
     
-    public ArrayList<Mural> compararSimilitud(Ficha[][] subMural, Mural original){
+    public ArrayList<Mural> compararSimilitud(Ficha[][] subMural, Mural original, boolean grande){
         ArrayList<Mural> aRetornar = new ArrayList<>();
         for(Mural mur: this.listaMurales){
             if(mur != original){
@@ -118,7 +118,9 @@ public class Sistema {
                         boolean todosIguales = true;
                         for(int i = 0; i < filas && todosIguales; i++){
                             for(int j = 0; j < columnas && todosIguales; j++){
-                                boolean iguales = subMural[i][j] == mur.getMural()[f + i][c + j];
+                                String subRep = grande ? subMural[i][j].getRepGrande() : subMural[i][j].getRepChica();
+                                String murRep = grande ? mur.getMural()[f + i][c + j].getRepGrande() : mur.getMural()[f + i][c + j].getRepChica();
+                                boolean iguales = subRep.equals(murRep) && subMural[i][j].getColor() == mur.getMural()[f+i][c+j].getColor();
                                 if(!iguales){todosIguales = false;}
                             }
                         }

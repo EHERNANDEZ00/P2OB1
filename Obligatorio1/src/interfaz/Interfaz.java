@@ -343,7 +343,7 @@ public class Interfaz {
                 columnaFinal = pedirNumero("Cuantas columnas a partir de la seleccionada quiere comparar",1,12);
             }
             Ficha[][] subMural = muralAComparar.obtenerSubMural(filaInicio,columnaInicio, filaFinal, columnaFinal);
-            ArrayList<Mural> listaMurales = sist.compararSimilitud(subMural, muralAComparar);
+            ArrayList<Mural> listaMurales = sist.compararSimilitud(subMural, muralAComparar, grande);
             if (listaMurales.isEmpty()) {
                 System.out.println("No hay coincidencias");
             }else{
