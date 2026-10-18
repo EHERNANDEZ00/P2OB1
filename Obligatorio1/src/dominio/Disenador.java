@@ -75,6 +75,10 @@ public class Disenador {
         return this.coloresUsados.size();
     }
     
+    public void sumarMural(){
+        this.cantidadMurales++;
+    }
+    
     @Override
     public boolean equals(Object o){
         return this.nombre.equalsIgnoreCase(((Disenador) o).nombre);

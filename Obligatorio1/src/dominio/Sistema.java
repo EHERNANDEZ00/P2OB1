@@ -33,6 +33,7 @@ public class Sistema {
         for(Ficha ficha: unMural.fichasContenidas()){
             unMural.getDisenador().agregarDatosFicha(ficha);
         }
+        unMural.getDisenador().sumarMural();
     }
     public void agregarDisenador(Disenador unDisenador){
         listaDisenadores.add(unDisenador);
@@ -75,6 +76,16 @@ public class Sistema {
         return esValido;
     }
     
+    public ArrayList<Mural> muralesDelDisenador(Disenador dis){
+        ArrayList<Mural> murales = new ArrayList<>();
+        for(Mural mur: this.getListaMurales()){
+            if(mur.getDisenador() == dis){
+                murales.add(mur);
+            }
+        }
+        return murales;
+    }
+    
     private void precargar(){
         Ficha SOL = new Ficha("SOL", "\\|/-*-/|\\", "..|...\\|/.--*--./|\\...|..", 'M');
         Ficha CUADRADO = new Ficha("CUADRADO", "+-+|.|+-+", "+---+|...||...||...|+---+", 'N');
@@ -94,16 +105,5 @@ public class Sistema {
         agregarFicha(DIAMANTE);
         agregarFicha(VACIA);
     }
-    public ArrayList<Mural> muralesDelDisenador(Disenador dis){
-        ArrayList<Mural> murales = new ArrayList<>();
-        for(Mural mur: this.getListaMurales()){
-            if(mur.getDisenador() == dis){
-                murales.add(mur);
-            }
-        }
-        return murales;
-    }
-    
-    
     
 }

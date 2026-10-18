@@ -113,15 +113,7 @@ public class Mural {
     public void cambiarPosicion (int fila, int columna, Ficha ficha){
         this.mural[fila][columna] = ficha;
     }
-    /*
-    for(int i = 0; i < mur.getMural().length; i++){
-            for(int j = 0; j < mur.getMural()[0].length; j++){
-                if (mur.getMural()[i][j] == fichaACambiar){
-                    mur.cambiarPosicion(i, j, fichaNueva);
-                }
-            }
-        }
-    */
+   
     public void cambiarFicha(Ficha aCambiar, Ficha cambio){
         for(int i = 0; i < this.mural.length; i++){
             for(int j = 0; j < this.mural[0].length; j++){

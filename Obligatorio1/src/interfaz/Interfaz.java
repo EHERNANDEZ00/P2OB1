@@ -248,6 +248,11 @@ public class Interfaz {
                         muralAModificar.restaurar();
                         break;
                 }
+                for(Ficha[] linea: muralAModificar.getMural()){
+                    for(Ficha ficha: linea){
+                        muralAModificar.getDisenador().agregarDatosFicha(ficha);
+                    }
+                }
                 limpiar();
                 imprimirMuralChico(muralAModificar);
                 imprimirMuralGrande(muralAModificar);
