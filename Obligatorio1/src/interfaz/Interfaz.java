@@ -347,14 +347,15 @@ public class Interfaz {
             if (listaMurales.isEmpty()) {
                 System.out.println("No hay coincidencias");
             }else{
+                System.out.println("Los murales coincidentes al seleccionado son:");
                 for(Mural mur : listaMurales){
-                    System.out.println(mur.getNombre());
+                    System.out.println("1)"+mur.getNombre());
                 }
             }
         }else{
             System.out.println("No hay sufientes mutales para comparar");
-            esperar();
         }
+        esperar();
     }
 
     public void verFichas(){

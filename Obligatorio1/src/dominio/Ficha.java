@@ -45,5 +45,9 @@ public class Ficha {
     public void setColor(char color) {
         this.color = color;
     }
-    
+    @Override
+    public boolean equals(Object obj){
+        Ficha otra = (Ficha) obj;
+        return this.getRepGrande().equals(otra.getRepGrande());
+    }
 }
