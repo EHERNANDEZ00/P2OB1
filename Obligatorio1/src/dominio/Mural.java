@@ -148,5 +148,50 @@ public class Mural {
         return contenidos;
     }
     
+    public char[][] convertirAChar(boolean grande){
+        int cantPorFila = grande ? 5 : 3;
+        int largoFila = cantPorFila * 12;
+        int largoCols = cantPorFila * 10;
+        char[][] aRetornar = new char[largoFila][largoCols];
+        for(int f = 0; f < 12; f++){
+            for(int c = 0; c < 10; c++){
+                Ficha ficha = this.mural[f][c];
+                String diseno = grande ? ficha.getRepGrande() : ficha.getRepChica();
+                for (int i = 0; i < cantPorFila; i++){
+                    for(int j = 0; j < cantPorFila; j++){
+                        int posChar = i*cantPorFila + j;
+                        aRetornar[f * cantPorFila + i][c * cantPorFila + j] = diseno.charAt(posChar);
+                    }
+                }
+            }
+        }
+        return aRetornar;
+    }
+    
+    public char[][] extraerSubMatriz(char[][] original, int fila0, int col0, int cantFilas, int cantCols){
+        char[][] subMatriz = new char[cantFilas][cantCols];
+        for(int i = 0; i < cantFilas; i++){
+            for(int j = 0; j < cantCols; j++){
+                subMatriz[i][j] = original[fila0 + i][col0 + j];
+            }
+        }
+        return subMatriz;
+    }
+    
+    public boolean compararSimilitud(char[][] sub){
+        int cantFilas = sub.length;
+        int cantCols = sub.length;
+        boolean encontrado = true;
+        for(int i = 0; i < 12; i++){
+            if(i + cantFilas < 12){
+                for(int j = 0; j < 10; j++){
+                    if(j + cantCols < 10){
+                        
+                    }
+                }
+            }
+        }
+    }
+    
 }
    

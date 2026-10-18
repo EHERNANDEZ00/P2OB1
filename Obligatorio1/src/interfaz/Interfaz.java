@@ -300,6 +300,7 @@ public class Interfaz {
     }
     
     public void listaDisenadores(){
+        limpiar();
         for(Disenador dis: sist.getListaDisenadores()){
             System.out.println(dis.getNombre());
             System.out.println("Cantidad de murales: " + dis.getCantidadMurales());
@@ -308,6 +309,7 @@ public class Interfaz {
             System.out.println("Cantidad de fichas usadas: " + dis.getNumeroFichas());
             System.out.println("Cantidad de colores usados: " + dis.getNumeroColores());
         }
+        esperar();
     }
     
     public void compararMurales(){
