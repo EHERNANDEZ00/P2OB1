@@ -30,9 +30,13 @@ public class Sistema {
     }
     public void agregarMural(Mural unMural){
         listaMurales.add(unMural);
+        for(Ficha ficha: unMural.fichasContenidas()){
+            unMural.getDisenador().agregarDatosFicha(ficha);
+        }
     }
     public void agregarDisenador(Disenador unDisenador){
         listaDisenadores.add(unDisenador);
+        this.listaDisenadores.sort((d1,d2) -> d1.getNombre().compareTo(d2.getNombre()));
     }
     
     public boolean validarNombreFicha(String nombre){

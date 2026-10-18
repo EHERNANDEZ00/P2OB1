@@ -1,6 +1,6 @@
 
 package dominio;
-
+import java.util.ArrayList;
 
 public class Disenador {
     private String nombre;
@@ -8,6 +8,9 @@ public class Disenador {
     private int cantidadMurales;
     private String direccion;
     private int numeroDeMurales;
+    private ArrayList<Ficha> fichasUsadas;
+    private ArrayList<Character> coloresUsados;
+    
 
     public Disenador(String nombre, String email, String direccion) {
         this.nombre = nombre;
@@ -15,6 +18,9 @@ public class Disenador {
         this.cantidadMurales = 0;
         this.direccion = direccion;
         this.numeroDeMurales = 0;
+        this.numeroDeMurales = 0;
+        this.fichasUsadas = new ArrayList<>();
+        this.coloresUsados = new ArrayList<>();
     }
     
     
@@ -50,7 +56,25 @@ public class Disenador {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
+    
+    public void agregarDatosFicha(Ficha ficha){
+        if(!this.fichasUsadas.contains(ficha)){
+            this.fichasUsadas.add(ficha);
+        }
+        char colorDeLaFicha = ficha.getColor();
+        if(!this.coloresUsados.contains(colorDeLaFicha)){
+            coloresUsados.add(colorDeLaFicha);
+        }
+    }
+    
+    public int getNumeroFichas(){
+        return this.fichasUsadas.size();
+    }
+    
+    public int getNumeroColores(){
+        return this.coloresUsados.size();
+    }
+    
     @Override
     public boolean equals(Object o){
         return this.nombre.equalsIgnoreCase(((Disenador) o).nombre);

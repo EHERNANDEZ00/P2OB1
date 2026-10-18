@@ -183,13 +183,15 @@ public class Interfaz {
             }
             
             if(formatoChar != 'M'){
-            sist.agregarMural(new Mural(nMural, disenador, formatoChar, fichaA, fichaB));
+                sist.agregarMural(new Mural(nMural, disenador, formatoChar, fichaA, fichaB));
+                
             } else {
                 sist.agregarMural(new Mural(nMural, disenador, 'D', sist.getListaFichas().get(7), sist.getListaFichas().get(7)));
                 boolean seguir = true;
                 while(seguir){
+                    limpiar();
                     int fila = pedirNumero("Ingrese la fila en la que se encuentra la posicion que quiere cambiar (1 - 10)", 1, 10) -1;
-                    int columna = pedirNumero("Ingrese la columna en la que se encuentra la posicion que quiere cambiar", 1, 12) -1;
+                    int columna = pedirNumero("Ingrese la columna en la que se encuentra la posicion que quiere cambiar (1 - 12)", 1, 12) -1;
                     if(sist.getListaMurales().get(sist.getListaMurales().size() -1).validarManual(fila, columna, sist.getListaFichas().get(7))){
                         limpiar();
                         System.out.println("0) " + fichaA.getNombre());
@@ -294,7 +296,12 @@ public class Interfaz {
     
     public void listaDisenadores(){
         for(Disenador dis: sist.getListaDisenadores()){
-            System.out.println(dis);
+            System.out.println(dis.getNombre());
+            System.out.println("Cantidad de murales: " + dis.getCantidadMurales());
+            System.out.println("Email: " + dis.getEmail());
+            System.out.println("Direccion: " + dis.getDireccion());
+            System.out.println("Cantidad de fichas usadas: " + dis.getNumeroFichas());
+            System.out.println("Cantidad de colores usados: " + dis.getNumeroColores());
         }
     }
     
@@ -304,6 +311,7 @@ public class Interfaz {
     
 
     public void verFichas(){
+        limpiar();
         for(Ficha ficha : sist.getListaFichas()){
             System.out.println("Ficha: " + ficha.getNombre());
             System.out.println("Color: " + ficha.getColor());

@@ -75,7 +75,7 @@ public class Mural {
         Ficha[][] muralB = new Ficha[10][12];
         for(int i = 0; i < muralB.length; i++){
             for(int j = 0; j < muralB[0].length; j++){
-                if (i==0 || i == muralB.length || j == 0 || j == muralB[0].length) {
+                if (i==0 || i == muralB.length -1 || j == 0 || j == muralB[0].length -1) {
                     muralB[i][j] = fichaA;
                 }else{
                     muralB[i][j] = fichaB;
