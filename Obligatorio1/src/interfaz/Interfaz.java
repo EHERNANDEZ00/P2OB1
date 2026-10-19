@@ -132,22 +132,22 @@ public class Interfaz {
         }
     
     public void crearMural() {
-        limpiar();
-        if (!(sist.getListaDisenadores().isEmpty())) {
-            String nMural = pedirString("Ingrese el nombre del mural");
-            Boolean okM = sist.validarNombreMural(nMural);
-            while (!okM) {
-                limpiar();
-                System.out.println("Ese nombre de mural ya se encuentra en uso");
-                nMural = pedirString("Por favor, ingrese un nuevo nombre para el mural");
-                okM = sist.validarNombreMural(nMural);
-            }
             limpiar();
             for (int i = 0; i < sist.getListaDisenadores().size(); i++) {
                 System.out.println(i + ") " + sist.getListaDisenadores().get(i).getNombre());
             }
             int indice = pedirNumero("Cuál es el diseñador?", 0, sist.getListaDisenadores().size() - 1);
             Disenador disenador = sist.getListaDisenadores().get(indice);
+            limpiar();
+            if (!(sist.getListaDisenadores().isEmpty())) {
+                String nMural = pedirString("Ingrese el nombre del mural");
+                Boolean okM = sist.validarNombreMural(nMural);
+                while (!okM) {
+                    limpiar();
+                    System.out.println("Ese nombre de mural ya se encuentra en uso");
+                    nMural = pedirString("Por favor, ingrese un nuevo nombre para el mural");
+                    okM = sist.validarNombreMural(nMural);
+                }
             limpiar();
             String formato = pedirString("Seleccione el tipo de formato\nD) Damero\nR) Random\nF) Alternando por filas\nB) Borde exterior\nM) Manual").toUpperCase();
             while (!(formato.equals("D") || formato.equals("R") || formato.equals("F") || formato.equals("B") || formato.equals("M"))) {
@@ -300,6 +300,7 @@ public class Interfaz {
                 }
                 int indexMural = pedirNumero("Seleccione un mural: ", 0, murales.size() -1);
                 Mural muralAMostrar = murales.get(indexMural);
+                limpiar();
                 String opcion = pedirString("Desea visualizarlo en formato chico o grande?\nC) Chico\nG) Grande").toUpperCase();
                 while(!opcion.equals("C") && !opcion.equals("G")){
                     opcion = pedirString("Opción invalida, ingrese C o G").toUpperCase();

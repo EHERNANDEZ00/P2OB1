@@ -7,7 +7,6 @@ public class Disenador {
     private String email;
     private int cantidadMurales;
     private String direccion;
-    private int numeroDeMurales;
     private ArrayList<Ficha> fichasUsadas;
     private ArrayList<Character> coloresUsados;
     
@@ -17,8 +16,6 @@ public class Disenador {
         this.email = email;
         this.cantidadMurales = 0;
         this.direccion = direccion;
-        this.numeroDeMurales = 0;
-        this.numeroDeMurales = 0;
         this.fichasUsadas = new ArrayList<>();
         this.coloresUsados = new ArrayList<>();
     }
