@@ -31,7 +31,7 @@ public class Sistema {
     public void agregarMural(Mural unMural){
         listaMurales.add(unMural);
         for(Ficha ficha: unMural.fichasContenidas()){
-            unMural.getDisenador().agregarDatosFicha(ficha);
+            unMural.getDisenador().agregarDatos(ficha);
         }
         unMural.getDisenador().sumarMural();
     }
@@ -105,7 +105,18 @@ public class Sistema {
         agregarFicha(DIAMANTE);
         agregarFicha(VACIA);
     }
-    
+    public void refrescarDisenador(Disenador dis){
+        dis.vueltaACero();
+        for(Mural mur: this.listaMurales){
+            if(mur.getDisenador().getNombre().equals(dis.getNombre())){
+                for(Ficha[] linea : mur.getMural()){
+                    for(Ficha ficha : linea){
+                        dis.agregarDatos(ficha);
+                    }
+                }
+            }
+        }
+    }
     public ArrayList<Mural> compararSimilitud(Ficha[][] subMural, Mural original, boolean grande){
         ArrayList<Mural> aRetornar = new ArrayList<>();
         for(Mural mur: this.listaMurales){

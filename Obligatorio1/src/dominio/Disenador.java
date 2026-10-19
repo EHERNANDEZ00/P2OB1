@@ -57,7 +57,11 @@ public class Disenador {
         this.direccion = direccion;
     }
     
-    public void agregarDatosFicha(Ficha ficha){
+    public void vueltaACero(){
+        this.coloresUsados = new ArrayList<Character>();
+        this.fichasUsadas = new ArrayList<Ficha>();
+    }
+    public void agregarDatos(Ficha ficha){
         if(!this.fichasUsadas.contains(ficha)){
             this.fichasUsadas.add(ficha);
         }
@@ -66,7 +70,6 @@ public class Disenador {
             coloresUsados.add(colorDeLaFicha);
         }
     }
-    
     public int getNumeroFichas(){
         return this.fichasUsadas.size();
     }

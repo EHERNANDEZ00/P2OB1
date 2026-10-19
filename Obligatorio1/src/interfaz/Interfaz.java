@@ -112,9 +112,9 @@ public class Interfaz {
                 nombreOk = sist.validarNombreFicha(nombre);
             }
             String color = pedirString("Ingrese el color de la ficha ingrese: \nR -> Rojo\nA -> Azul\nB -> Blanco\nN -> Negro\nM -> Amarillo\nV -> Verde\nG -> Magenta\nC -> Celeste").toUpperCase();
-            while(!(color.equals("R")|| color.equals("A")|| color.equals("B")|| color.equals("N")|| color.equals("M")|| color.equals("V")|| color.equals("G")) || color.equals("C")){
+            while(!(color.equals("R")|| color.equals("A")|| color.equals("B")|| color.equals("N")|| color.equals("M")|| color.equals("V")|| color.equals("G") || color.equals("C"))){
                 limpiar();
-                color = pedirString("Color no encontrado, ingrese \nR -> Rojo\nA -> Azul\nB -> Blanco\nN -> Negro\nM -> Amarillo\nV -> Verde\nG -> Magenta\nC -> Celeste");
+                color = pedirString("Color no encontrado, ingrese \nR -> Rojo\nA -> Azul\nB -> Blanco\nN -> Negro\nM -> Amarillo\nV -> Verde\nG -> Magenta\nC -> Celeste").toUpperCase();
             }
             char colorChar = color.charAt(0);
             String disenoChico = pedirString("Ingrese el diseño chico de la ficha (Nueve caracteres)");
@@ -209,7 +209,7 @@ public class Interfaz {
                 }
                 for (Ficha[] linea : sist.getListaMurales().get(sist.getListaMurales().size()-1).getMural()) {
                     for (Ficha ficha : linea) {
-                        disenador.agregarDatosFicha(ficha);
+                        disenador.agregarDatos(ficha);
                     }
                 }
             }
@@ -234,6 +234,7 @@ public class Interfaz {
             int contador = 0;
             for(Mural mur: sist.getListaMurales()){
                 System.out.println(contador+ ") " + mur.getNombre() + " desarrollado por: " + mur.getDisenador().getNombre());
+                contador++;
             }
             int indexMural = pedirNumero("Seleccione un Mural: ", 0, sist.getListaMurales().size() -1);
             Mural muralAModificar = sist.getListaMurales().get(indexMural);
@@ -270,54 +271,54 @@ public class Interfaz {
                         esperar();
                         break;
                 }
-                for(Ficha[] linea: muralAModificar.getMural()){
-                    for(Ficha ficha: linea){
-                        muralAModificar.getDisenador().agregarDatosFicha(ficha);
-                    }
-                }
-                
+                sist.refrescarDisenador(muralAModificar.getDisenador());
             }
         }
     }
     
     public void verMural(){
         limpiar();
-        for(int i = 0; i < sist.getListaDisenadores().size(); i++){
-            System.out.println(i + ") " + sist.getListaDisenadores().get(i).getNombre());
-        }
-        int indexDisenador = pedirNumero("Seleccione un diseñador (0 - " + (sist.getListaDisenadores().size() -1), 0, sist.getListaDisenadores().size() -1);
-        Disenador dis = sist.getListaDisenadores().get(indexDisenador);
-        ArrayList<Mural> murales = sist.muralesDelDisenador(dis);
-        if(murales.isEmpty()){
-            System.out.println("Este diseñador aun no tiene murales para mostrar");
+        if(sist.getListaMurales().isEmpty()){
+            System.out.println("No hay murales que mostrar");
             esperar();
         } else {
-            int contador = 0;
-            for(Mural mur : murales){
-                System.out.println(contador + ") " + mur.getNombre());
-                contador ++;
+            for(int i = 0; i < sist.getListaDisenadores().size(); i++){
+                System.out.println(i + ") " + sist.getListaDisenadores().get(i).getNombre());
             }
-            int indexMural = pedirNumero("Seleccione un mural: ", 0, murales.size() -1);
-            Mural muralAMostrar = murales.get(indexMural);
-            String opcion = pedirString("Desea visualizarlo en formato chico o grande?\nC) Chico\nG) Grande").toUpperCase();
-            while(!opcion.equals("C") && !opcion.equals("G")){
-                opcion = pedirString("Opción invalida, ingrese C o G").toUpperCase();
-            }
-            boolean mostrandoG = opcion.equals("G");
-            while (!opcion.equals("S")){
-                if(mostrandoG){
-                    limpiar();
-                   imprimirMuralGrande(muralAMostrar);
-                } else {
-                    limpiar();
-                    imprimirMuralChico(muralAMostrar);
+            int indexDisenador = pedirNumero("Seleccione un diseñador (0 - " + (sist.getListaDisenadores().size() -1) + ")", 0, sist.getListaDisenadores().size() -1);
+            Disenador dis = sist.getListaDisenadores().get(indexDisenador);
+            ArrayList<Mural> murales = sist.muralesDelDisenador(dis);
+            if(murales.isEmpty()){
+                System.out.println("Este diseñador aun no tiene murales para mostrar");
+                esperar();
+            } else {
+                limpiar();
+                int contador = 0;
+                for(Mural mur : murales){
+                    System.out.println(contador + ") " + mur.getNombre());
+                    contador ++;
                 }
-                mostrandoG = !mostrandoG;
-                System.out.println("Presione enter para alternar entre tamaños de mural, presione S para salir");
-                opcion = input.nextLine();
+                int indexMural = pedirNumero("Seleccione un mural: ", 0, murales.size() -1);
+                Mural muralAMostrar = murales.get(indexMural);
+                String opcion = pedirString("Desea visualizarlo en formato chico o grande?\nC) Chico\nG) Grande").toUpperCase();
+                while(!opcion.equals("C") && !opcion.equals("G")){
+                    opcion = pedirString("Opción invalida, ingrese C o G").toUpperCase();
+                }
+                boolean mostrandoG = opcion.equals("G");
+                while (!opcion.equals("S")){
+                    if(mostrandoG){
+                        limpiar();
+                       imprimirMuralGrande(muralAMostrar);
+                    } else {
+                        limpiar();
+                        imprimirMuralChico(muralAMostrar);
+                    }
+                    mostrandoG = !mostrandoG;
+                    System.out.println("Presione enter para alternar entre tamaños de mural, presione S para salir");
+                    opcion = input.nextLine();
+                }
             }
         }
-        
     }
     
     public void listaDisenadores(){
@@ -339,6 +340,7 @@ public class Interfaz {
     }
     
   public void compararMurales(){
+        limpiar();
         if (sist.getListaMurales().size()>1){
             
       
@@ -373,7 +375,7 @@ public class Interfaz {
                 }
             }
         }else{
-            System.out.println("No hay sufientes mutales para comparar");
+            System.out.println("No hay sufientes murales para comparar");
         }
         esperar();
     }
@@ -391,6 +393,7 @@ public class Interfaz {
         esperar();
     }
     
+    //Metodos para pedir datos
     
     public Ficha pedirFicha(){
         for(int i = 0; i < sist.getListaFichas().size(); i++){
@@ -400,8 +403,6 @@ public class Interfaz {
         return sist.getListaFichas().get(indexFicha);
     }
     
-    
-    //Metodos para pedir datos
     public void esperar(){
         System.out.println("Presione cualquier tecla para continuar");
         input.nextLine();
