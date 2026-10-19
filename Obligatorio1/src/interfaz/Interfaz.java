@@ -108,10 +108,10 @@ public class Interfaz {
             String nombre = pedirString("Ingrese el nombre de la ficha: ").toUpperCase();
             boolean nombreOk = sist.validarNombreFicha(nombre);
             while(!nombreOk){
-                nombre = pedirString("Una ficha con ese nombre ya existe, ingrese otro");
+                nombre = pedirString("Una ficha con ese nombre ya existe, ingrese otro").toUpperCase();
                 nombreOk = sist.validarNombreFicha(nombre);
             }
-            String color = pedirString("Ingrese el color de la ficha ingrese: \nR -> Rojo\nA -> Azul\nB -> Blanco\nN -> Negro\nM -> Amarillo\nV -> Verde\nG -> Magenta\nC -> Celeste");
+            String color = pedirString("Ingrese el color de la ficha ingrese: \nR -> Rojo\nA -> Azul\nB -> Blanco\nN -> Negro\nM -> Amarillo\nV -> Verde\nG -> Magenta\nC -> Celeste").toUpperCase();
             while(!(color.equals("R")|| color.equals("A")|| color.equals("B")|| color.equals("N")|| color.equals("M")|| color.equals("V")|| color.equals("G")) || color.equals("C")){
                 limpiar();
                 color = pedirString("Color no encontrado, ingrese \nR -> Rojo\nA -> Azul\nB -> Blanco\nN -> Negro\nM -> Amarillo\nV -> Verde\nG -> Magenta\nC -> Celeste");
@@ -179,6 +179,7 @@ public class Interfaz {
                 martin = aux - aux2;
                 if (martin == 0) {
                     System.out.println("Error, no puede tener un mural de dos fichas iguales");
+                    esperar();
                 }
             }
             
@@ -238,19 +239,35 @@ public class Interfaz {
             Mural muralAModificar = sist.getListaMurales().get(indexMural);
             boolean modificando = true;
             while (modificando){
-                int opcion = pedirNumero("Ingrese una opción\n0) Volver\n1) Modificar posición\n2) Modificar ficha\n3) Restaurar", 0, 4);
+                limpiar();
+                int opcion = pedirNumero("Ingrese una opción\n0) Volver\n1) Modificar posición\n2) Modificar ficha\n3) Restaurar", 0, 3);
                 switch (opcion){
                     case 0:
                         modificando = false;
                         break;
                     case 1:
+                        limpiar();
                         modificarPosicion(muralAModificar);
+                        limpiar();
+                        imprimirMuralChico(muralAModificar);
+                        imprimirMuralGrande(muralAModificar);
+                        esperar();
                         break;
                     case 2:
+                        limpiar();
                         modificarFicha(muralAModificar);
+                        limpiar();
+                        imprimirMuralChico(muralAModificar);
+                        imprimirMuralGrande(muralAModificar);
+                        esperar();
                         break;
                     case 3:
+                        limpiar();
                         muralAModificar.restaurar();
+                        limpiar();
+                        imprimirMuralChico(muralAModificar);
+                        imprimirMuralGrande(muralAModificar);
+                        esperar();
                         break;
                 }
                 for(Ficha[] linea: muralAModificar.getMural()){
@@ -258,9 +275,7 @@ public class Interfaz {
                         muralAModificar.getDisenador().agregarDatosFicha(ficha);
                     }
                 }
-                limpiar();
-                imprimirMuralChico(muralAModificar);
-                imprimirMuralGrande(muralAModificar);
+                
             }
         }
     }
@@ -307,13 +322,18 @@ public class Interfaz {
     
     public void listaDisenadores(){
         limpiar();
-        for(Disenador dis: sist.getListaDisenadores()){
-            System.out.println(dis.getNombre());
-            System.out.println("Cantidad de murales: " + dis.getCantidadMurales());
-            System.out.println("Email: " + dis.getEmail());
-            System.out.println("Dirección: " + dis.getDireccion());
-            System.out.println("Cantidad de fichas usadas: " + dis.getNumeroFichas());
-            System.out.println("Cantidad de colores usados: " + dis.getNumeroColores());
+        if(!sist.getListaDisenadores().isEmpty()){
+            for(Disenador dis: sist.getListaDisenadores()){
+                System.out.println("Nombre: " + dis.getNombre());
+                System.out.println("Cantidad de murales: " + dis.getCantidadMurales());
+                System.out.println("Email: " + dis.getEmail());
+                System.out.println("Dirección: " + dis.getDireccion());
+                System.out.println("Cantidad de fichas usadas: " + dis.getNumeroFichas());
+                System.out.println("Cantidad de colores usados: " + dis.getNumeroColores());
+                System.out.println("");
+            }
+        } else {
+            System.out.println("No hay diseñadores registrados");
         }
         esperar();
     }
@@ -327,7 +347,7 @@ public class Interfaz {
             }
             int indexMural = pedirNumero("Seleccione el mural del cual buscar patrones similares en otros", 0, sist.getListaMurales().size() -1);
             Mural muralAComparar = sist.getListaMurales().get(indexMural);
-            int opcion = pedirNumero("Desea buscar en la representación grande o chica?\n 0) Grande\n1) chica", 0, 1);
+            int opcion = pedirNumero("Desea buscar en la representación grande o chica?\n0) Grande\n1) chica", 0, 1);
             boolean grande = opcion == 0;
             if(grande){imprimirMuralGrande(muralAComparar);} else {imprimirMuralChico(muralAComparar);}
             int filaInicio = pedirNumero("Seleccione la fila de inicio para comparar",1,10)-1;
@@ -428,12 +448,14 @@ public class Interfaz {
     //Helpers para modificar mural
     
     public void modificarPosicion(Mural mur){
+        limpiar();
         int fila = pedirNumero("Ingrese la fila de la ficha a modificar (1 - 10): ", 1, 10) - 1;
         int columna = pedirNumero("Ingrese la columna de la ficha a modificar (1 - 12): ",1, 12) -1;
         Ficha ficha = pedirFicha();
         mur.cambiarPosicion(fila, columna, ficha);
     }
     public void modificarFicha(Mural mur){
+        limpiar();
         int contador = 1;
         for(Ficha ficha : mur.fichasContenidas()){
             System.out.println(contador + ") " + ficha.getNombre());
